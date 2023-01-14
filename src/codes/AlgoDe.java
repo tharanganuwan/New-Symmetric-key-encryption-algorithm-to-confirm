@@ -20,25 +20,37 @@ public class AlgoDe {
     void decrypt( String text){
 
         String arr[]={
-                "032a714bc7d76d",
-                "055e12e983db98",
-                "078bdc10088f98",
-                "04569f0cc9eb6c",
-                "0d2c6a6782b0b3",
-                "11e53a49bda805",
-                "03d73a77fbd9fd",
-                "08906e69f467e4",
-                "077f23b1986918",
-                "040dd5a1c3c6ff",
+                "2386f26fc0ffff",
+                "2386f26fc0ffff",
+                "2386f26fc0ffff",
+                "02bd4fcbb47ed9",
+                "088a296552ebcb",
+                "19512a34150b5b",
+                "03e97b5f69a41f",
+                "2386f26fc0ffff",
+                "2386f26fc0ffff",
+                "2386f26fc0ffff",
                 "2386f26fc0ffff",
                 "2386f26fc0ffff"
         };
 
         AlgoDe algo = new AlgoDe();
+        arr=algo.shifting(arr,3);   //shift 3 rows
         text = algo.hecDecimal(arr);
-        String out=algo.deConAscii(text,5);// decrement assci value
+        String out=algo.deConAscii(text,5); // decrement assci value
         System.out.println(out);
 
+    }
+
+    String[] shifting(String[] text,int count){
+        for(int k=0;k<count;k++){
+            String temp = text[0];
+            for (int i = (0); i <= text.length - 2; i++) {
+                 text[i]=text[i+1];
+            }
+            text[text.length-1] = temp;
+        }
+        return text;
     }
 
     String hecDecimal(String list[]){
@@ -50,7 +62,6 @@ public class AlgoDe {
             while (a.length()<16){
                 a="0"+a;
             }
-            System.out.println(a);
             b=b+a;
         }
         return b;
@@ -75,8 +86,4 @@ public class AlgoDe {
         }
         return fText;
      }
-//     String[] divided(String text){
-//       for()
-//        return
-//     }
 }

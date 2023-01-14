@@ -5,12 +5,10 @@ public class Algo {
 
     public static void main(String args[])
     {
-        String text = "Tharanga Nuwan Kumara Kasun lkjhgfdsawe tyuioplkmjh";
+        String text = "Hi how are you Nimal";
         String key = "AABB09182736CCDD";
         Algo algo = new Algo();
         algo.encrypt(text);
-
-
     }
     void encrypt( String text){
 
