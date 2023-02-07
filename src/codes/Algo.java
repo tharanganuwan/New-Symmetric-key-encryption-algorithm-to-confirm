@@ -1,16 +1,29 @@
 package codes;
 
+import java.util.Random;
+
 public class Algo {
 
+    static String randomElement1;
+    static String randomElement2;
 
     public static void main(String args[])
     {
-        String text = "Hi how are you Nimal";
+        String text = "Hi My name is tharanga Nuwan Kumara";
         String key = "AABB09182736CCDD";
+
+        Random random = new Random();
+        int randomNum1 = random.nextInt(9);
+        int randomNum2 = random.nextInt(10);
+        while(randomNum1==randomNum2 || randomNum1>randomNum2){
+            randomNum2 = random.nextInt(10);
+        }
+        System.out.println(randomNum1);
+        System.out.println(randomNum2);
         Algo algo = new Algo();
-        algo.encrypt(text);
+        algo.encrypt(text,randomNum1,randomNum2);
     }
-    void encrypt( String text){
+    void encrypt( String text, int r1,int r2){
 
         Algo algo = new Algo();
         String out=algo.conAscii(text,5); //add count
@@ -21,6 +34,35 @@ public class Algo {
         for(int i = 0; i < textArray.length; i++) {
             System.out.println(textArray[i]);
         }
+        System.out.println("\n");
+        textArray=algo.removeElements(textArray,r1,r2);
+
+        for(int i = 0; i < textArray.length; i++) {
+            System.out.println(textArray[i]);
+        }
+
+        System.out.println("\n");
+
+        System.out.println(randomElement1);
+        System.out.println(randomElement2);
+
+
+    }
+
+    String[] removeElements(String array[],int r1,int r2){
+        int count=0;
+        String []newArray= new String[10];
+        for(int i=0;i<array.length;i++){
+            if(i==r1){
+                randomElement1=array[i];
+            }else if(i==r2){
+                randomElement2=array[i];
+            }else {
+                newArray[count]=array[i];
+                count++;
+            }
+        }
+        return newArray;
     }
 
     String[] shifting(String[] text,int count){
