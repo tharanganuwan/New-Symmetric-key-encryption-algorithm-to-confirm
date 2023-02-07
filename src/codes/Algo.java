@@ -7,9 +7,13 @@ public class Algo {
     static String randomElement1;
     static String randomElement2;
 
+//    String symbols[] = {"ꇺ","ෆ","☺","ꕤ","ᙏ","ʬ","ଳ","ᴗ","✿","♡","യ","ɞ","ꔛ","☄","⍤","◯","ε","з","ꔚ","✦","✱","ꊞ","↺","°","•","⁀","➷","♡","୨","୧"};
+    String letters[] = {"@","$","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","?","%"};
+
+
     public static void main(String args[])
     {
-        String text = "Hi My name is tharanga Nuwan Kumara";
+        String text = "Hi My name is tharanga Nuwan Kumara Kumara Amal";
         String key = "AABB09182736CCDD";
 
         Random random = new Random();
@@ -18,35 +22,54 @@ public class Algo {
         while(randomNum1==randomNum2 || randomNum1>randomNum2){
             randomNum2 = random.nextInt(10);
         }
-        System.out.println(randomNum1);
-        System.out.println(randomNum2);
+        int randomNum3 = random.nextInt(10);   // start ponit of Symbol
+        System.out.println("random num 1 :"+randomNum1);
+        System.out.println("random num 2 :"+randomNum2);
+        System.out.println("random num 3 :"+randomNum3);
+
         Algo algo = new Algo();
-        algo.encrypt(text,randomNum1,randomNum2);
+        algo.encrypt(text,randomNum1,randomNum2,randomNum3);
     }
-    void encrypt( String text, int r1,int r2){
+    void encrypt( String text, int r1,int r2,int r3){
 
         Algo algo = new Algo();
         String out=algo.conAscii(text,5); //add count
         String textArray[]=algo.divided(out);
         textArray=algo.conHex(textArray);
         textArray=  algo.shifting(textArray,3);     //shift count
+        textArray=algo.removeElements(textArray,r1,r2);     // remove 2 columns
+        text=algo.arrayToString(textArray);
+        text=algo.convertSymbol(text,r3);     // give random start number Convert to Symbol
+        System.out.println(text);
+    }
+    String convertSymbol(String text,int start){
 
-        for(int i = 0; i < textArray.length; i++) {
-            System.out.println(textArray[i]);
+        String numArray[] = new String[30];
+        int count=0;
+        for(int i=start;i<90+start;i=i+3){
+            if(i<10){
+                numArray[count]="0"+String.valueOf(i) ;
+            }
+            else {
+                numArray[count]=String.valueOf(i) ;
+            }
+            count++;
         }
-        System.out.println("\n");
-        textArray=algo.removeElements(textArray,r1,r2);
 
-        for(int i = 0; i < textArray.length; i++) {
-            System.out.println(textArray[i]);
+        for(int i=0;i<numArray.length;i++){
+            String parts=numArray[i];
+            String a=letters[i];
+            text= text.replace(parts,a);
         }
+        return text;
+    }
 
-        System.out.println("\n");
-
-        System.out.println(randomElement1);
-        System.out.println(randomElement2);
-
-
+    String arrayToString(String array[]){
+        String text="";
+        for(int i=0;i<array.length;i++){
+            text=text+array[i];
+        }
+        return text;
     }
 
     String[] removeElements(String array[],int r1,int r2){
@@ -62,6 +85,8 @@ public class Algo {
                 count++;
             }
         }
+        System.out.println("random Element 1 : "+randomElement1);
+        System.out.println("random Element 2 : "+randomElement2);
         return newArray;
     }
 
