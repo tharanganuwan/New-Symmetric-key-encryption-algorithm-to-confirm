@@ -9,14 +9,14 @@ public class AlgoDe {
     {
         AlgoDe algo = new AlgoDe();
 
-        String text = "2386f26fc0::2386f26fc0::02bd4fc[0P8c0d2f{4f[3}b19J9_31f7c(~b9K89%53ba0VId71d8fF203a0c4Z0Kb7107db*10#323b191e3b37&f6cf";
+        String text = "2386f26fc0::2386f26fc0::2386f26fc0::02ea?94b0c8ad192fYd5ceNbe07dc2ce4c10e5c~Of(Hbcabe0CCeX25ac4Rd2cb040deK#C8fb92dF4:f";
 
         String key = "AABB09182736CCDD";
-        int randomNum1=8;
-        int randomNum2=9;
-        int randomNum3=8 ;
-        String randomElement1="07839d71d8f302";
-        String randomElement2="03a0c490045b71";
+        int randomNum1=4;
+        int randomNum2=6;
+        int randomNum3=3 ;
+        String randomElement1="0502efc51d1ca3";
+        String randomElement2="0416e6ef53af8f";
 
         algo.decrypt(text,randomNum1,randomNum2,randomNum3,randomElement1,randomElement2);
     }
