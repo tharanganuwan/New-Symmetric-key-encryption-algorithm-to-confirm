@@ -7,9 +7,8 @@ public class Algo {
     static String randomElement1;
     static String randomElement2;
 
-//    String symbols[] = {"ꇺ","ෆ","☺","ꕤ","ᙏ","ʬ","ଳ","ᴗ","✿","♡","യ","ɞ","ꔛ","☄","⍤","◯","ε","з","ꔚ","✦","✱","ꊞ","↺","°","•","⁀","➷","♡","୨","୧"};
-    String letters[] = {"@","$","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","?","%"};
-
+    String symbols[] = {"~","!","#","^","*","(",")","-","+","{","}","[","]","_","?",":"};
+    String letters[] = {"@","$","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","&","%"};
 
     public static void main(String args[])
     {
@@ -39,9 +38,38 @@ public class Algo {
         textArray=  algo.shifting(textArray,3);     //shift count
         textArray=algo.removeElements(textArray,r1,r2);     // remove 2 columns
         text=algo.arrayToString(textArray);
-        text=algo.convertSymbol(text,r3);     // give random start number Convert to Symbol
+        text=algo.convertSymbol(text,r3);// give random start number Convert to Symbol
+        text=algo.compress(text);
         System.out.println(text);
     }
+
+    String compress(String text){
+        for(int i=0;i<16;i++){
+            String value = (String.valueOf(i)+String.valueOf(i));
+            if(i<10){
+                text= text.replace(value,symbols[i]);
+            }
+            else if(i==10){
+                text= text.replace("aa",symbols[i]);
+            }
+            else if(i==11){
+                text= text.replace("bb",symbols[i]);
+            }
+            else if(i==12){
+                text= text.replace("cc",symbols[i]);
+            }else if(i==13){
+                text= text.replace("dd",symbols[i]);
+            }
+            else if(i==14){
+                text= text.replace("ee",symbols[i]);
+            }
+            else if(i==15){
+                text= text.replace("ff",symbols[i]);
+            }
+        }
+        return text;
+    }
+
     String convertSymbol(String text,int start){
 
         String numArray[] = new String[30];

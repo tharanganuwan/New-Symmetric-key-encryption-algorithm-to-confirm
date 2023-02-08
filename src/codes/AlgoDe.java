@@ -1,21 +1,22 @@
 package codes;
 
 public class AlgoDe {
-//    String symbols[] = {"ꇺ","ෆ","☺","ꕤ","ᙏ","ʬ","ଳ","ᴗ","✿","♡","യ","ɞ","ꔛ","☄","⍤","◯","ε","з","ꔚ","✦","✱","ꊞ","↺","°","•","⁀","➷","♡","୨","୧"};
-    String letters[] = {"@","$","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","?","%"};
+
+    String symbols[] = {"~","!","#","^","*","(",")","-","+","{","}","[","]","_","?",":"};
+    String letters[] = {"@","$","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","&","%"};
 
     public static void main(String args[])
     {
         AlgoDe algo = new AlgoDe();
 
-        String text = "2386f26fc0ffff2386f26fc0ffff2386f26fc0ffff02bd4fcbb$08c19L9dd31f7c55@a0c4%104J%XKd71d8fH2@a0c4%0Mb7107db441022323b191e3b3793f6cf";
+        String text = "2386f26fc0::2386f26fc0::02bd4fc[0P8c0d2f{4f[3}b19J9_31f7c(~b9K89%53ba0VId71d8fF203a0c4Z0Kb7107db*10#323b191e3b37&f6cf";
 
         String key = "AABB09182736CCDD";
-        int randomNum1=4;
-        int randomNum2=7;
-        int randomNum3=3;
-        String randomElement1="0d2f994fbb3aab";
-        String randomElement2="00b945899653ba";
+        int randomNum1=8;
+        int randomNum2=9;
+        int randomNum3=8 ;
+        String randomElement1="07839d71d8f302";
+        String randomElement2="03a0c490045b71";
 
         algo.decrypt(text,randomNum1,randomNum2,randomNum3,randomElement1,randomElement2);
     }
@@ -24,6 +25,8 @@ public class AlgoDe {
         String arr[]=new String[10];
 
         AlgoDe algo = new AlgoDe();
+
+        text=algo.deCompress(text);
         text = algo.removeSymbols(text,r3);
         arr=algo.StringToArray(text);
         arr=algo.addRemoveElements(arr,r1,r2,e1,e2);
@@ -32,6 +35,21 @@ public class AlgoDe {
         String out=algo.deConAscii(text,5); // decrement assci value
         System.out.println(out);
 
+    }
+
+    String deCompress(String text){
+
+        for(int i=0;i<10;i++){
+                String value = (String.valueOf(i)+String.valueOf(i));
+                text= text.replace(symbols[i],value);
+            }
+            text= text.replace(symbols[10],"aa");
+            text= text.replace(symbols[11],"bb");
+            text= text.replace(symbols[12],"cc");
+            text= text.replace(symbols[13],"dd");
+            text= text.replace(symbols[14],"ee");
+            text= text.replace(symbols[15],"ff");
+        return text;
     }
 
     public String removeSymbols(String text,int start){
@@ -47,20 +65,17 @@ public class AlgoDe {
             }
             count++;
         }
-
         for(int i=0;i<letters.length;i++){
             String parts=letters[i];
             String a=numArray[i];
             text= text.replace(parts,a);
         }
-
         return text;
     }
 
     public String[] StringToArray(String str){
         int len = str.length(),n = 10,temp = 0,chars = len/n;
         String[] equalStr = new String [n];
-
         for(int i = 0; i < len; i = i+chars) {
             String part = str.substring(i, i+chars);
             equalStr[temp] = part;
@@ -121,7 +136,6 @@ public class AlgoDe {
             equalStr[temp] = part;
             temp++;
         }
-
         for(int i=0;i<equalStr.length;i++){
             int asciiVal = Integer.parseInt(equalStr[i]);
             if(asciiVal!=999)
