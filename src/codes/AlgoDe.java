@@ -1,53 +1,53 @@
 package codes;
 
-public class AlgoDe {
+import objects.RandomNumbers;
+import objects.RandomText;
 
+public class AlgoDe {
+    static RandomText randomText = new RandomText();
     String symbols[] = {"~","!","#","^","*","(",")","-","+","{","}","[","]","_","?",":"};
     String letters[] = {"@","$","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","&","%"};
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
+        String text = "2386f26fc0::2386f26fc0::2386f26fc0::0HedbdX4_d506ca3c6NQba815c57ae45f$3c047b0{926f1dJe{6598f0c75Qde^9d29ad45Q5V54c_c9af90*48?42d4bef039AbZa9B9b2386f26fc0::2386f26fc0::2386f26fc0::2386f26fc0::2386f26fc0::2386f26fc0::2386f26fc0::";
+        String key = "2386f26fc0ffff115bd4ccf6bdeff047b20e19d3b0a92386f26fc0ffff1018202386f26fc0ffff947";
         AlgoDe algo = new AlgoDe();
-
-        String text = "0^ca691fR}10ea8ab7a^cfea04Sd452fYea~deH0db1faUe0ea07dR409ead04Seb9b6eb7d61d2d25Ac9bKe$c37937e07:fDYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::";
-
-        String key = "AABB09182736CCDD";
-        int randomNum1=1;
-        int randomNum2=9;
-        int randomNum3=14;
-        int randomNum4=18;
-        int randomNum5=20;
-        int randomCount=7;
-        int randomShift=0;
-        int randomStart=8;
-        String randomElement1="061427a754fba0";
-        String randomElement2="2386f26fc0ffff";
-        String randomElement3="2386f26fc0ffff";
-        String randomElement4="2386f26fc0ffff";
-        String randomElement5="2386f26fc0ffff";
-
-        algo.decrypt(text,randomNum1,randomNum2,randomNum3,randomNum4,randomNum5,randomElement1,randomElement2,randomElement3,randomElement4,randomElement5,randomCount,randomShift,randomStart);
+        RandomNumbers numbers = algo.identifyKey(key);
+        algo.decrypt(text,numbers,randomText);
     }
-    void decrypt(String text,int r1,int r2,int r3,int r4,int r5,String e1,String e2,String e3,String e4,String e5,int randomCount,int randomShift,int randomStart) {
+    public RandomNumbers identifyKey(String key){
+        RandomNumbers numbers = new RandomNumbers();
+        randomText.setRandomElement1(key.substring(0,14));
+        randomText.setRandomElement2(key.substring(15,29));
+        randomText.setRandomElement3(key.substring(29,43));
+        randomText.setRandomElement4(key.substring(44,58));
+        randomText.setRandomElement5(key.substring(64,78));
+        numbers.setRandomNum1(Integer.parseInt(key.substring(14,15)));
+        numbers.setRandomNum2(Integer.parseInt(key.substring(43,44)));
+        numbers.setRandomNum3(Integer.parseInt(key.substring(58,60)));
+        numbers.setRandomNum4(Integer.parseInt(key.substring(60,62)));
+        numbers.setRandomNum5(Integer.parseInt(key.substring(62,64)));
+        numbers.setRandomCount(Integer.parseInt(key.substring(78,79)));
+        numbers.setRandomShift(Integer.parseInt(key.substring(79,80)));
+        numbers.setRandomStart(Integer.parseInt(key.substring(80,81)));
+        return numbers;
+    }
 
+    public void decrypt(String text, RandomNumbers numbers, RandomText rText) {
         String arr[]=new String[10];
-
-
         AlgoDe algo = new AlgoDe();
-
         text=algo.deCompress(text);
-        text = algo.removeSymbols(text,randomStart);
+        text = algo.removeSymbols(text,numbers.getRandomStart());
         arr=algo.StringToArray(text);
-        arr=algo.addRemoveElements(arr,r1,r2,r3,r4,r5,e1,e2,e3,e4,e5);
-        arr=algo.shifting(arr,randomShift);   //shift 3 rows
+        arr=algo.addRemoveElements(arr,numbers,rText);
+        arr=algo.shifting(arr,numbers.getRandomShift());   //shift 3 rows
         text = algo.hecDecimal(arr);
-        String out=algo.deConAscii(text,randomCount); // decrement assci value
+        String out=algo.deConAscii(text,numbers.getRandomCount()); // decrement assci value
         System.out.println(out);
 
     }
 
-    String deCompress(String text){
-
+    public String deCompress(String text){
         for(int i=0;i<10;i++){
                 String value = (String.valueOf(i)+String.valueOf(i));
                 text= text.replace(symbols[i],value);
@@ -62,14 +62,12 @@ public class AlgoDe {
     }
 
     public String removeSymbols(String text,int start){
-
         String numArray[] = new String[30];
         int count=0;
         for(int i=start;i<90+start;i=i+3){
             if(i<10){
                 numArray[count]="0"+String.valueOf(i) ;
-            }
-            else {
+            }else {
                 numArray[count]=String.valueOf(i) ;
             }
             count++;
@@ -93,25 +91,21 @@ public class AlgoDe {
         return  equalStr;
     }
 
-    String[] addRemoveElements(String array[],int r1,int r2,int r3,int r4,int r5, String e1,String e2,String e3,String e4,String e5){
+    String[] addRemoveElements(String array[],RandomNumbers numbers, RandomText rText){
         String []newArray=new String[24];
         int count=0;
         for(int i=0;i<24;i++){
-            if(i==r1){
-                newArray[i]=e1;
-            }else if(i==r2){
-                newArray[i]=e2;
-            }
-            else if(i==r3){
-                newArray[i]=e3;
-            }
-            else if(i==r4){
-                newArray[i]=e4;
-            }
-            else if(i==r5){
-                newArray[i]=e5;
-            }
-            else {
+            if(i==numbers.getRandomNum1()){
+                newArray[i]=rText.getRandomElement1();
+            }else if(i==numbers.getRandomNum2()){
+                newArray[i]=rText.getRandomElement2();
+            }else if(i==numbers.getRandomNum3()){
+                newArray[i]=rText.getRandomElement3();
+            }else if(i==numbers.getRandomNum4()){
+                newArray[i]=rText.getRandomElement4();
+            }else if(i==numbers.getRandomNum5()){
+                newArray[i]=rText.getRandomElement5();
+            }else {
                 newArray[i]=array[count];
                 count++;
             }
