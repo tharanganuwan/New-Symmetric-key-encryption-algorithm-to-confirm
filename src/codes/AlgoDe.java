@@ -9,30 +9,39 @@ public class AlgoDe {
     {
         AlgoDe algo = new AlgoDe();
 
-        String text = "2386f26fc0::2386f26fc0::2386f26fc0::02ea?94b0c8ad192fYd5ceNbe07dc2ce4c10e5c~Of(Hbcabe0CCeX25ac4Rd2cb040deK#C8fb92dF4:f";
+        String text = "0^ca691fR}10ea8ab7a^cfea04Sd452fYea~deH0db1faUe0ea07dR409ead04Seb9b6eb7d61d2d25Ac9bKe$c37937e07:fDYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::DYfEfc0::";
 
         String key = "AABB09182736CCDD";
-        int randomNum1=4;
-        int randomNum2=6;
-        int randomNum3=3 ;
-        String randomElement1="0502efc51d1ca3";
-        String randomElement2="0416e6ef53af8f";
+        int randomNum1=1;
+        int randomNum2=9;
+        int randomNum3=14;
+        int randomNum4=18;
+        int randomNum5=20;
+        int randomCount=7;
+        int randomShift=0;
+        int randomStart=8;
+        String randomElement1="061427a754fba0";
+        String randomElement2="2386f26fc0ffff";
+        String randomElement3="2386f26fc0ffff";
+        String randomElement4="2386f26fc0ffff";
+        String randomElement5="2386f26fc0ffff";
 
-        algo.decrypt(text,randomNum1,randomNum2,randomNum3,randomElement1,randomElement2);
+        algo.decrypt(text,randomNum1,randomNum2,randomNum3,randomNum4,randomNum5,randomElement1,randomElement2,randomElement3,randomElement4,randomElement5,randomCount,randomShift,randomStart);
     }
-    void decrypt(String text,int r1,int r2,int r3,String e1,String e2) {
+    void decrypt(String text,int r1,int r2,int r3,int r4,int r5,String e1,String e2,String e3,String e4,String e5,int randomCount,int randomShift,int randomStart) {
 
         String arr[]=new String[10];
+
 
         AlgoDe algo = new AlgoDe();
 
         text=algo.deCompress(text);
-        text = algo.removeSymbols(text,r3);
+        text = algo.removeSymbols(text,randomStart);
         arr=algo.StringToArray(text);
-        arr=algo.addRemoveElements(arr,r1,r2,e1,e2);
-        arr=algo.shifting(arr,3);   //shift 3 rows
+        arr=algo.addRemoveElements(arr,r1,r2,r3,r4,r5,e1,e2,e3,e4,e5);
+        arr=algo.shifting(arr,randomShift);   //shift 3 rows
         text = algo.hecDecimal(arr);
-        String out=algo.deConAscii(text,5); // decrement assci value
+        String out=algo.deConAscii(text,randomCount); // decrement assci value
         System.out.println(out);
 
     }
@@ -74,7 +83,7 @@ public class AlgoDe {
     }
 
     public String[] StringToArray(String str){
-        int len = str.length(),n = 10,temp = 0,chars = len/n;
+        int len = str.length(),n = 19,temp = 0,chars = len/n;
         String[] equalStr = new String [n];
         for(int i = 0; i < len; i = i+chars) {
             String part = str.substring(i, i+chars);
@@ -84,15 +93,25 @@ public class AlgoDe {
         return  equalStr;
     }
 
-    String[] addRemoveElements(String array[],int r1,int r2, String e1,String e2){
-        String []newArray=new String[12];
+    String[] addRemoveElements(String array[],int r1,int r2,int r3,int r4,int r5, String e1,String e2,String e3,String e4,String e5){
+        String []newArray=new String[24];
         int count=0;
-        for(int i=0;i<12;i++){
+        for(int i=0;i<24;i++){
             if(i==r1){
                 newArray[i]=e1;
             }else if(i==r2){
                 newArray[i]=e2;
-            }else {
+            }
+            else if(i==r3){
+                newArray[i]=e3;
+            }
+            else if(i==r4){
+                newArray[i]=e4;
+            }
+            else if(i==r5){
+                newArray[i]=e5;
+            }
+            else {
                 newArray[i]=array[count];
                 count++;
             }
@@ -128,7 +147,7 @@ public class AlgoDe {
      String deConAscii(String text,int sub){
         String fText="";
         int len = text.length();
-        int n = 64;
+        int n = 128;
         int temp = 0, chars = len/n;
         String[] equalStr = new String [n];
         for(int i = 0; i < len; i = i+chars) {
